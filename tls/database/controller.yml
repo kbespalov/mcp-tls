@@ -1,6 +1,6 @@
 classes:
-- service.rabbitmq.server.ssl
-- system.salt.minion.cert.rabbitmq_server
+- system.salt.minion.cert.mysql.server
+- service.galera.ssl
 
 parameters:
 
@@ -9,56 +9,51 @@ parameters:
       trusted_ca_minions:
         - cfg01.${_param:cluster_domain}
 
-  designate:
-    server:
-      message_queue:
-        port: 5671
-        ssl:
-          enabled: True
+  galera:
+    master:
+      ssl:
+        enabled: True
+    slave:
+      ssl:
+        enabled: True
 
   heat:
     server:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
 
+  designate:
+    server:
+      database:
+        ssl:
+          enabled: True
   glance:
     server:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
-
   neutron:
     server:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
   nova:
     controller:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
-
-
   cinder:
     controller:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
     volume:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
-
   keystone:
     server:
-      message_queue:
-        port: 5671
+      database:
         ssl:
           enabled: True
