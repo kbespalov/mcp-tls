@@ -1,0 +1,105 @@
+classes:
+- service.galera.ssl
+- service.rabbitmq.server.ssl
+- system.salt.minion.cert.rabbitmq_server
+- system.salt.minion.cert.mysql.server
+
+parameters:
+  _param:
+    mcp_tls_enabled: True
+  salt:
+    minion:
+      trusted_ca_minions:
+        - cfg01.${_param:cluster_domain}
+  barbican:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  heat:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  designate:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  glance:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+
+  neutron:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+    compute:
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+    gateway:
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  nova:
+    controller:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  cinder:
+    controller:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+
+    volume:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+  keystone:
+    server:
+      database:
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}
+      message_queue:
+        port: 5671
+        ssl:
+          enabled: ${_param:mcp_tls_enabled}

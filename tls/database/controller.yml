@@ -3,26 +3,20 @@ classes:
 - service.galera.ssl
 
 parameters:
-
   salt:
     minion:
       trusted_ca_minions:
         - cfg01.${_param:cluster_domain}
-
-  galera:
-    master:
-      ssl:
-        enabled: True
-    slave:
-      ssl:
-        enabled: True
-
+  barbican:
+    server:
+      database:
+        ssl:
+          enabled: True
   heat:
     server:
       database:
         ssl:
           enabled: True
-
   designate:
     server:
       database:
