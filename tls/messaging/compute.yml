@@ -1,10 +1,5 @@
 parameters:
-
-  salt:
-    minion:
-      trusted_ca_minions:
-        - cfg01.${_param:cluster_domain}
-            
+    
   neutron:
     compute:
       message_queue:

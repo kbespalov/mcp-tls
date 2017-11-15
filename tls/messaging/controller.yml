@@ -4,11 +4,6 @@ classes:
 
 parameters:
 
-  salt:
-    minion:
-      trusted_ca_minions:
-        - cfg01.${_param:cluster_domain}
-
   designate:
     server:
       message_queue:
