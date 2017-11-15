@@ -99,6 +99,29 @@ Solution:
 Ensure that all keys and certificates accessable for read via `rabbitmq` server
 
 
+- Issue 3. Certs cannot be generated due to invalid value of the following param:
+
+  ```
+  _param:
+    salt_minion_ca_host: abcd
+  ```
+
+  Traceback
+
+  ```
+  2017-11-15 17:08:46,338 [salt.loaded.int.module.publish][INFO    ][22492] Publishing 'x509.sign_remote_certificate' to tcp://192.168.10.90:4506
+  2017-11-15 17:08:46,359 [salt.state       ][ERROR   ][22492] An exception occurred in this state: Traceback (most recent call last):
+    File "/usr/lib/python2.7/dist-packages/salt/state.py", line 1735, in call
+      **cdata['kwargs'])
+    File "/usr/lib/python2.7/dist-packages/salt/loader.py", line 1653, in wrapper
+      return f(*args, **kwargs)
+    File "/usr/lib/python2.7/dist-packages/salt/states/x509.py", line 432, in certificate_managed
+      new = __salt__['x509.create_certificate'](testrun=True, **kwargs)
+    File "/usr/lib/python2.7/dist-packages/salt/modules/x509.py", line 1116, in create_certificate
+      arg=str(kwargs))[ca_server]
+  TypeError: 'NoneType' object has no attribute '__getitem__'
+  ```
+
 ### Links:
 [1] https://github.com/salt-formulas/salt-formula-salt/blob/master/salt/minion/cert.sls
 [2] https://github.com/salt-formulas/salt-formula-rabbitmq/blob/master/metadata/service/server/ssl.yml
