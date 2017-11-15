@@ -5,8 +5,10 @@ classes:
 - system.salt.minion.cert.mysql.server
 
 parameters:
+  
   _param:
     mcp_tls_enabled: True
+
   salt:
     minion:
       trusted_ca_minions:
