@@ -57,11 +57,6 @@ parameters:
         port: 5671
         ssl:
           enabled: ${_param:mcp_tls_enabled}
-    compute:
-      message_queue:
-        port: 5671
-        ssl:
-          enabled: ${_param:mcp_tls_enabled}
     gateway:
       message_queue:
         port: 5671
