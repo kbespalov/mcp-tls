@@ -8,12 +8,16 @@ exec > >(tee -i /tmp/"$(basename "$0" .sh)"_"$(date '+%Y-%m-%d_%H-%M-%S')".log) 
 salt '*' saltutil.refresh_pillar
 salt '*' saltutil.sync_all
 
-salt -C 'I@galera:master:enabled' state.sls galera
-salt -C 'I@galera:master:enabled' state.sls galera
+# Apply RabbitMQ state
 salt -C 'I@rabbitmq:server:enabled:enabled' state.sls rabbitmq
+
+# Apply Galera state + manual restart
+salt -C 'I@galera:master:enabled' state.sls galera
+salt -C 'I@galera:master:enabled' state.sls galera
 
 salt -C 'I@galera:slave:enabled'  service.stop mysql -b 1
 salt -C 'I@galera:master:enabled' service.stop mysql -b 1
-salt -C 'I@galera:master:enabled' cmd.run "rm -rdf /var/run/mysqld && mkdir /var/run/mysqld && chown mysql:mysql /var/run/mysqld"
-salt -C 'I@galera:master:enabled' cmd.run "service mysql start --wsrep-new-cluster"
+salt -C 'I@galera:master:enabled' cmd.run "rm -rdf /var/run/mysqld"
+salt -C 'I@galera:master:enabled' cmd.run "mkdir /var/run/mysqld && chown mysql:mysql /var/run/mysqld"
+salt -C 'I@galera:master:enabled' cmd.run "service mysql bootstrap"
 salt -C 'I@galera:slave:enabled' service.start mysql
