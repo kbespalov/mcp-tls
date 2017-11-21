@@ -17,7 +17,5 @@ salt -C 'I@galera:master:enabled' state.sls galera
 
 salt -C 'I@galera:slave:enabled'  service.stop mysql -b 1
 salt -C 'I@galera:master:enabled' service.stop mysql -b 1
-salt -C 'I@galera:master:enabled' cmd.run "rm -rdf /var/run/mysqld"
-salt -C 'I@galera:master:enabled' cmd.run "mkdir /var/run/mysqld && chown mysql:mysql /var/run/mysqld"
-salt -C 'I@galera:master:enabled' cmd.run "service mysql bootstrap"
-salt -C 'I@galera:slave:enabled' service.start mysql
+salt -C 'I@galera:master:enabled' cmd.run "service mysql start --service-startup-timeout=60 --wsrep-new-cluster"
+salt -C 'I@galera:slave:enabled' service.start mysql -b 1

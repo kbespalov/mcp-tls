@@ -16,3 +16,6 @@ salt -C 'I@neutron:gateway:enabled' state.sls neutron -b 1
 salt -C 'I@heat:server:enabled' state.sls heat -b 1
 salt -C 'I@barbican:server:enabled' state.sls barbican -b 1
 salt -C 'I@designate:server:enabled' state.sls designate -b 1
+salt -C 'I@nova:compute:enabled' state.sls nova -b 1
+salt -C 'I@neutron:compute:enabled' state.sls neutron -b 1
+salt -C 'I@neutron:gateway:enabled' state.sls neutron -b 1
