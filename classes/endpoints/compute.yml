@@ -1,0 +1,13 @@
+# Desciption:
+
+# The class to configure OpenStack services at compute node
+
+parameters:
+  nova:
+    compute:
+      identity:
+        protocol: https
+      network:
+        protocol: https
+      image:
+        protocol: https

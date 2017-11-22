@@ -14,21 +14,37 @@ parameters:
         protocol: https
       glance:
         protocol: https
-
+  heat:
+    server:
+      api:
+        host: 127.0.0.1
+      api_cfn:
+        host: 127.0.0.1
+      api_cloudwatch:
+        host: 127.0.0.1
+      identity:
+        protocol: https
   neutron:
     server:
       bind:
         address: 127.0.0.1
       identity:
         protocol: https
-
   glance:
     server:
       bind:
         address: 127.0.0.1
       identity:
         protocol: https
-        
+      registry:
+        protocol: https
+  designate:
+    server:
+      identity:
+        protocol: https
+      bind:
+        api:
+          address: 127.0.0.1
   keystone:
     server:
       bind:
