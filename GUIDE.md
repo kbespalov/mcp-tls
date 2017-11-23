@@ -28,7 +28,7 @@
 
 2. **Make sure each of nodes are trusts to CA certificates that coming from SaltMaster**:
 
-    ```yml
+    ```
     _param:
        salt_minion_ca_host: cfg01.${_param:cluster_domain}
     salt:
@@ -59,13 +59,22 @@
     ```
 - MySQL (Galera Cluster):
    ```sh
+   # Will change configs files like my.cnf, but does not restart the service
    salt -C 'I@galera:master:enabled' state.sls galera
    salt -C 'I@galera:master:enabled' state.sls galera
 
+   # Stop slaves and master in the following order
    salt -C 'I@galera:slave:enabled'  service.stop mysql -b 1
    salt -C 'I@galera:master:enabled' service.stop mysql -b 1
-   salt -C 'I@galera:master:enabled' cmd.run "service mysql start --service-startup-timeout=60 --wsrep-new-cluster"
+
+   # Run cluster boostrap process on master node in foreground
+   salt -C 'I@galera:master:enabled' cmd.run "service mysql bootstrap" &
+   # then start mysql on slaves nodes
    salt -C 'I@galera:slave:enabled' service.start mysql -b 1
+
+   # Verify cluster size:
+   salt -C 'I@galera:master:enabled' mysql.status | grep -A1 wsrep_cluster_size
+   salt -C 'I@galera:slave:enabled' mysql.status | grep -A1 wsrep_cluster_size
    ```
 
 ### Configuration of TLS at client's side:
