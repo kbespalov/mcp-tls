@@ -18,8 +18,6 @@ parameters:
       engine: salt
       mode: secure
     salt_minion_ca_host: cfg01.${_param:cluster_domain}
-
-parameters:
   nginx:
     server:
       site:
@@ -48,11 +46,6 @@ parameters:
             host: 127.0.0.1
           host:
             name: ${_param:cluster_local_address}
-        nginx_proxy_openstack_api_placement:
-          proxy:
-            host: 127.0.0.1
-          host:
-            name: ${_param:cluster_local_address}
         nginx_proxy_openstack_api_heat_cloudwatch:
           proxy:
             host: 127.0.0.1
@@ -73,18 +66,28 @@ parameters:
             host: 127.0.0.1
           host:
             name: ${_param:cluster_local_address}
-       nginx_proxy_openstack_api_designate:
+        nginx_proxy_openstack_api_designate:
           proxy:
             host: 127.0.0.1
           host:
             name: ${_param:cluster_local_address}
-       nginx_proxy_openstack_api_cinder:
+        nginx_proxy_openstack_api_cinder:
           proxy:
             host: 127.0.0.1
           host:
             name: ${_param:cluster_local_address}
-       nginx_proxy_openstack_api_barbican:
+        nginx_proxy_openstack_api_barbican:
           proxy:
             host: 127.0.0.1
           host:
             name: ${_param:cluster_local_address}
+        nginx_proxy_openstack_api_placement:
+          name: openstack_api_placement
+          proxy:
+            host: 127.0.0.1
+            port: 8780
+          host:
+            name: ${_param:cluster_local_address}
+              port: 8780
+          type: nginx_proxy
+          ssl: ${_param:nginx_proxy_ssl}
