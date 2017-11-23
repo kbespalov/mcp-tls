@@ -1,0 +1,45 @@
+# set type: ~  in order to set mode: tcp
+# isntead of default http that coming from system.haproxy.proxy.openstack.*
+
+parameters:
+  haproxy:
+    proxy:
+      listen:
+        # barbican-api:
+        #   type: ~
+        # barbican-admin-api:
+        #   type: ~
+        designate_api:
+          type: ~
+
+        # TODO(keystone)
+        # stick sessions required for federated keystone to back-redirect: keystone --> idp ----> same keystone
+        # we need to use the following chain client ----- https ----> haproxy (stick) ----> https
+        # double https proxy, at the moment not done
+
+        keystone_public_api:
+          type: ~
+        keystone_admin_api:
+          type: ~
+        nova_api:
+          type: ~
+        nova_metadata_api:
+          type: ~
+        cinder_api:
+          type: ~
+        glance_api:
+          type: ~
+        glance_registry_api:
+          type: ~
+        # glare:
+        #   type: ~
+        heat_cloudwatch_api:
+          type: ~
+        heat_api:
+          type: ~
+        heat_cfn_api:
+          type: ~
+        neutron_api:
+          type: ~
+        nova_placement_api:
+          type: ~

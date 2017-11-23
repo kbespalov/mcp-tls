@@ -1,5 +1,13 @@
 ---
 parameters:
+  cinder:
+    controller:
+      identity:
+        protocol: https
+      glance:
+        protocol: https
+      osapi:
+        host: 127.0.0.1
   nova:
     controller:
       bind:
@@ -12,12 +20,13 @@ parameters:
          protocol: https
   heat:
     server:
-      api:
-        host: 127.0.0.1
-      api_cfn:
-        host: 127.0.0.1
-      api_cloudwatch:
-        host: 127.0.0.1
+      bind:
+        api:
+          host: 127.0.0.1
+        api_cfn:
+          host: 127.0.0.1
+        api_cloudwatch:
+          host: 127.0.0.1
       identity:
         protocol: https
   neutron:
