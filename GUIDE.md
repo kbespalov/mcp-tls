@@ -10,24 +10,29 @@
 1. **Add the following classes to the cluster model of the nodes where the server is located**:
 
 - RabbitMQ server:
-    ```
+    ```yml
     classes:
+     ### Enable tls, contains paths to certs/keys
      - service.rabbitmq.server.ssl
+     ### Definition of cert/key
      - system.salt.minion.cert.rabbitmq_server
      ```
 - MySQL server (Galera Cluster):
-     ```
+     ```yml
     classes:
+     ### Enable tls, contains paths to certs/keys
     - service.galera.ssl
+    ### Definition of cert/key
     - system.salt.minion.cert.mysql.server
      ```
 
 2. **Make sure each of nodes are trusts to CA certificates that coming from SaltMaster**:
 
-    ```
+    ```yml
+    _param:
+       salt_minion_ca_host: cfg01.${_param:cluster_domain}
     salt:
        minion:
-          salt_minion_ca_host: cfg01.${_param:cluster_domain}
           trusted_ca_minions:
             -  cfg01.${_param:cluster_domain}
     ```
@@ -49,11 +54,11 @@
 5. **Apply the new state to the servers**
 
 - RabbiMQ:
-    ```
+    ```sh
     salt -I 'rabbitmq:server' state.sls rabbitmq.server
     ```
 - MySQL (Galera Cluster):
-   ```
+   ```sh
    salt -C 'I@galera:master:enabled' state.sls galera
    salt -C 'I@galera:master:enabled' state.sls galera
 
@@ -67,17 +72,20 @@
 
 1. For each of the OpenStack services enable TLS protocol usage for messaging and database communications via changing a cluster model as it show in examples below:
 
-- **controller node**:
--- database: https://github.com/kbespalov/mcp-tls/blob/master/classes/database/controller.yml
--- messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/controller.yml
+* **controller node**:
 
-- **compute node**:
--- messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/controller.yml
+	* database: https://github.com/kbespalov/mcp-tls/blob/master/classes/database/controller.yml
+	* messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/controller.yml
 
-- **gateway node**:
--- messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/gateway.yml
+* **compute node**:
+	* messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/controller.yml
 
-    Example of AIO model: https://github.com/kbespalov/mcp-tls/blob/master/classes/aio.yml
+* **gateway node**:
+  * messaging: https://github.com/kbespalov/mcp-tls/blob/master/classes/messaging/gateway.yml
+
+* **AIO node**: https://github.com/kbespalov/mcp-tls/blob/master/classes/aio.yml.
+
+  Detailed description of TLS configuration each of the OpenStack salt formulas you can find at README.rst at thier git repos.
 
 
 2. **Refresh the pillar data to sync model at all nodes**:
@@ -89,7 +97,7 @@
 
 3. **Apply the new state to the OpenStack services**:
 
-    ```
+    ```sh
     salt -C 'I@keystone:server:enabled' state.sls keystone.server:enabled -b 1
     salt -C 'I@glance:server:enabled' state.sls glance -b 1
     salt -C 'I@nova:controller:enabled' state.sls nova -b 1

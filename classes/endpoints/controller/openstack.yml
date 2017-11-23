@@ -3,13 +3,13 @@ parameters:
   nova:
     controller:
       bind:
-        private_address: 127.0.0.1
+         private_address: 127.0.0.1
       identity:
-        protocol: https
+         protocol: https
       network:
-        protocol: https
+         protocol: https
       glance:
-        protocol: https
+         protocol: https
   heat:
     server:
       api:

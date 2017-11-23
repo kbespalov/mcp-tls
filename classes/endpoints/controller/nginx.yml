@@ -7,79 +7,92 @@ classes:
   - system.nginx.server.proxy.openstack.designate
 parameters:
   _param:
+    salt_minion_ca_host: "cfg01.${_param:cluster_domain}"
     nginx_proxy_ssl:
-      authority: "${_param:salt_minion_ca_authority}"
-      cert_file: "/etc/ssl/certs/${_param:cluster_vip_address}.crt"
       enabled: true
       engine: salt
+      authority: "${_param:salt_minion_ca_authority}"
       key_file: "/etc/ssl/private/${_param:cluster_vip_address}.key"
-      mode: secure
-    salt_minion_ca_host: "cfg01.${_param:cluster_domain}"
+      chain_file: "/etc/ssl/certs/${_param:cluster_vip_address}.crt"
   nginx:
     server:
       site:
         nginx_proxy_openstack_api_barbican:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_cinder:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_designate:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
+            address: ${_param:cluster_local_address}
             host: "127.0.0.1"
         nginx_proxy_openstack_api_glance:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_heat:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_heat_cfn:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_heat_cloudwatch:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_keystone:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_keystone_private:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_neutron:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_nova:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_nova_ec2:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
           proxy:
             host: "127.0.0.1"
         nginx_proxy_openstack_api_placement:
           host:
+            address: ${_param:cluster_local_address}
             name: "${_param:cluster_local_address}"
             port: 8780
           name: openstack_api_placement
