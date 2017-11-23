@@ -1,8 +1,4 @@
-# Desciption:
-
-# The class to configure OpenStack services at controller node
-# listen on localhost in order to terminate tls traffic at nginx
-
+---
 parameters:
   nova:
     controller:
